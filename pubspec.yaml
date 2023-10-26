@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^6.0.2
   shared_preferences: ^2.0.20
   url_launcher: ^6.1.12
+  pinput: ^3.0.1
 
 dev_dependencies:
   flutter_test:

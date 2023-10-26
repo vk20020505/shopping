@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping/Screens.dart/splashScreen.dart';
 
 import 'Screens.dart/home.dart';
 import 'firebase_options.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
     appBarTheme: AppBarTheme(backgroundColor: Colors.green, elevation: 0,)
  
       ),
-      home: const Home(),
+      home: const SplashScreen(),
     );
   }
 }

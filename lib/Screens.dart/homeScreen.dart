@@ -4,10 +4,9 @@ import 'package:shopping/Admin/addCategory.dart';
 import 'package:shopping/Admin/addProduct.dart';
 import 'package:shopping/Admin/viewCategory.dart';
 import 'package:shopping/Admin/viewProduct.dart';
-import 'package:shopping/Screens.dart/Clothes.dart';
 import 'package:shopping/Screens.dart/categories.dart';
 import 'package:shopping/Screens.dart/fruits.dart';
-import 'package:shopping/Screens.dart/vegetables.dart';
+import 'package:shopping/Screens.dart/model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final category = FirebaseDatabase.instance.ref('Category');
   final databaseRef = FirebaseDatabase.instance.ref('Post');
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,55 +28,65 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 height: 100,
-                padding: const EdgeInsets.only(top: 25,left: 25),
+                padding: const EdgeInsets.only(top: 25, left: 25),
                 width: double.infinity,
                 color: Colors.green,
-                child: const Text('Admin', style: TextStyle(fontSize: 20, color: Colors.white),),
+                child: const Text(
+                  'Admin',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
               ListTile(
                 leading: const Icon(Icons.panorama_fish_eye),
-                title: const Text('View Product',style: TextStyle(fontSize: 15, ) ),
+                title: const Text('View Product',
+                    style: TextStyle(
+                      fontSize: 15,
+                    )),
                 onTap: () {
-                         Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const Fruit2();
-                              }));
-                },
-                 trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-                ListTile(
-                      leading: const Icon(Icons.add_shopping_cart),
-                title: const Text('Add Product',style: TextStyle(fontSize: 15, ) ),
-                onTap: () {
-                     Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const Dashboard();
-                              }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const Fruit2();
+                  }));
                 },
                 trailing: const Icon(Icons.arrow_forward_ios),
-                
               ),
-                ListTile(
-                      leading: const Icon(Icons.add_shopping_cart),
-                title: const Text('Add Category',style: TextStyle(fontSize: 15, ) ),
+              ListTile(
+                leading: const Icon(Icons.add_shopping_cart),
+                title: const Text('Add Product',
+                    style: TextStyle(
+                      fontSize: 15,
+                    )),
                 onTap: () {
-                     Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const Add_Category();
-                              }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const Dashboard();
+                  }));
                 },
-                 trailing: const Icon(Icons.arrow_forward_ios),
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
-                ListTile(
-                      leading: const Icon(Icons.panorama_fish_eye),
-                title: const Text('View Category',style: TextStyle(fontSize: 15, ) ),
+              ListTile(
+                leading: const Icon(Icons.add_shopping_cart),
+                title: const Text('Add Category',
+                    style: TextStyle(
+                      fontSize: 15,
+                    )),
                 onTap: () {
-                     Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const View_Category();
-                              }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const Add_Category();
+                  }));
                 },
-                  trailing: const Icon(Icons.arrow_forward_ios),
+                trailing: const Icon(Icons.arrow_forward_ios),
+              ),
+              ListTile(
+                leading: const Icon(Icons.panorama_fish_eye),
+                title: const Text('View Category',
+                    style: TextStyle(
+                      fontSize: 15,
+                    )),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const View_Category();
+                  }));
+                },
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
             ],
           ),
@@ -84,17 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           elevation: 0,
           titleSpacing: 1,
-          // leadingWidth: 30,
-          // leading: Icon(Icons.shopping_bag_outlined),
           title: const Text('Ecommerce App'),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  size: 28,
-                ))
-          ],
+        
         ),
         body: SingleChildScrollView(
             child: Padding(
@@ -138,50 +139,61 @@ class _HomeScreenState extends State<HomeScreen> {
                       } else {
                         Map<dynamic, dynamic> map =
                             snapshot.data?.snapshot.value as dynamic;
-                        print(map);
+                        // print(map);
                         List<dynamic> list = [];
                         list.clear();
                         list = map.values.toList();
-                        print(list);
+                        // print(list);
                         return ListView.builder(
                             padding: const EdgeInsets.all(0),
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.snapshot.children.length,
+                            itemCount: list.length,
                             itemBuilder: (context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      width: 100,
-                                      padding: const EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.green.shade100,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Container(
-                                        height: 60,
-                                        width: 60,
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Fruits(
+                                      category: list[index]['Name'],
+                                    );
+                                  }));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 100,
+                                        width: 100,
+                                        padding: const EdgeInsets.all(15),
                                         decoration: BoxDecoration(
-                                          color: Colors.grey.shade100,
-                                          // color: Colors.amber,
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                                list[index]['productUrl']),
-                                          ),
+                                          color: Colors.green.shade100,
                                           borderRadius:
                                               BorderRadius.circular(8),
                                         ),
+                                        child: Container(
+                                          height: 60,
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade100,
+                                            // color: Colors.amber,
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  list[index]['productUrl']),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      list[index]['Name'] as String,
-                                      style: const TextStyle(fontSize: 16),
-                                    )
-                                  ],
+                                      Text(
+                                        list[index]['Name'] as String,
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             });
@@ -202,60 +214,86 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else {
                       Map<dynamic, dynamic> map2 =
                           snapshot.data?.snapshot.value as dynamic;
-                      print(map2);
+                      // print(map2);
                       List<dynamic> list2 = [];
                       list2.clear();
                       list2 = map2.values.toList();
-                      print(list2);
+                      // print(list2);
                       return GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         padding: const EdgeInsets.only(top: 15),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: .83,
+                          childAspectRatio: .7,
+                          crossAxisSpacing: 50,
                           crossAxisCount: 2,
                         ),
-                        itemCount: snapshot.data!.snapshot.children.length,
+                        itemCount: list2.length,
+                        // itemCount: snapshot.data!.snapshot.children.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const Fruits();
-                              }));
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 160,
-                                  width: 160,
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  padding: const EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green.shade100,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade100,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            list2[index]['productUrl']),
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
+                          return Column(
+                            children: [
+                              Container(
+                                height: 160,
+                                width: 160,
+                                padding: const EdgeInsets.only(
+                                    top: 15, left: 15, right: 15),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.shade100,
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                                Text(
-                                  list2[index]['Name'] as String,
-                                  style: const TextStyle(fontSize: 18),
-                                )
-                              ],
-                            ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 100,
+                                      width: 130,
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              list2[index]['productUrl']),
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    Text(
+                                      list2[index]['Name'] as String,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                  ),
+                                  onPressed: () {
+                                    if (ShoppingCartItems.isEmpty) {
+                                      ShoppingCartItems.add(list2[index]);
+
+                                      setState(() {});
+                                    } else {
+                                      if (checkItemAvailability(
+                                          list2[index]['id'])) {
+                                        setState(() {});
+                                      } else {
+                                        print("object false");
+                                        ShoppingCartItems.add(list2[index]);
+                                        setState(() {});
+                                      }
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Add to cart',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white),
+                                  )),
+                            ],
                           );
                         },
                       );

@@ -24,74 +24,77 @@ class _CategoriesState extends State<Categories> {
         ),
         body: Column(children: [
           Expanded(
-              child: StreamBuilder(
-                  stream: category.onValue,
-                  builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
-                      Map<dynamic, dynamic> map =
-                          snapshot.data?.snapshot.value as dynamic;
-                      print(map);
-                      List<dynamic> list = [];
-                      list.clear();
-                      list = map.values.toList();
-                      print(list);
-                      return GridView.builder(
-                        padding: const EdgeInsets.all(15),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: .75,
-                          crossAxisCount: 2,
-                        ),
-                        itemCount: snapshot.data!.snapshot.children.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          // category items = categoryList[index];
+            child: StreamBuilder(
+                stream: category.onValue,
+                builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    Map<dynamic, dynamic> map =
+                        snapshot.data?.snapshot.value as dynamic;
+                    // print(map);
+                    List<dynamic> list = [];
+                    list.clear();
+                    list = map.values.toList();
+                    return GridView.builder(
+                      padding: const EdgeInsets.all(15),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: .85,
+                        crossAxisCount: 2,
+                      ),
+                      // itemCount: snapshot.data!.snapshot.children.length,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                      
 
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return const Fruits();
-                              }));
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 160,
-                                  width: 160,
-                                     margin: const EdgeInsets.only(bottom: 10),
-                                  padding: const EdgeInsets.all(15),
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return Fruits(
+                                category: list[index]['Name'],
+                              );
+                            }));
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 160,
+                                width: 160,
+                                margin: const EdgeInsets.only(bottom: 5),
+                                padding: const EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.shade100,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Container(
+                                  height: 100,
+                                  width: 100,
                                   decoration: BoxDecoration(
-                                    color: Colors.green.shade100,
+                                    color: Colors.grey.shade100,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          list[index]['productUrl']),
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                     child:                    Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                 list[index]['productUrl']
                                 ),
+                              ),
+                              Text(
+                                list[index]['Name'] as String,
+                                style: const TextStyle(fontSize: 20),
+                              )
+                            ],
                           ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                                ),
-                                Text(list[index]['Name'] as String, style: const TextStyle(fontSize: 20),)
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  }),
-                  
-                  )
+                        );
+                      },
+                    );
+                  }
+                }),
+          )
         ]),
-   
       ),
     );
   }
