@@ -60,10 +60,10 @@ class _CategoriesState extends State<Categories> {
                           child: Column(
                             children: [
                               Container(
-                                height: 160,
-                                width: 160,
+                                height: 140,
+                                width: 140,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                padding: const EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: Colors.green.shade100,
                                   borderRadius: BorderRadius.circular(8),

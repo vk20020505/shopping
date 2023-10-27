@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:developer';
-// import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pinput/pinput.dart';
-// import 'package:rapido/screens.dart/email.dart';
-// import 'package:rapido/screens.dart/home.dart';
-import 'package:shopping/Screens.dart/homeScreen.dart';
-// import 'package:rapido/screens.dart/home.dart';
+import 'package:shopping/Screens.dart/home.dart';
+
 
 class OtpPage extends StatefulWidget {
-    // const OtpPage({super.key, });
 
   const OtpPage({super.key, required this.number, required this.id});
   final String? number;
@@ -81,11 +74,11 @@ class _OtpPageState extends State<OtpPage> {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
-          if(userCredential.user != null){
-               Navigator.push(context, MaterialPageRoute(builder: (context){
-            return HomeScreen();
+      if (userCredential.user != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Home();
         }));
-          }
+      }
     } on FirebaseAuthException catch (error) {
       log(error.code.toString());
     }
@@ -93,30 +86,24 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.sizeOf(context).height;
-    double screenWidth = MediaQuery.sizeOf(context).width;
-
     return SafeArea(
       child: Scaffold(
-      
         body: Padding(
-          padding: const EdgeInsets.only(left:15.0, top:120, right: 15),
+          padding: const EdgeInsets.only(left: 15.0, top: 120, right: 15),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 "Enter the OTP",
-                style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 6.0, bottom: 30),
                 child: Text(
                   // "We have sent an OTP to  ",
                   "We have sent an OTP to ${widget.number} ",
-                  style: const TextStyle(
-                      fontSize: 17, color: Colors.black45),
+                  style: const TextStyle(fontSize: 17, color: Colors.black45),
                 ),
               ),
               Pinput(
@@ -124,13 +111,12 @@ class _OtpPageState extends State<OtpPage> {
                 length: 6,
                 defaultPinTheme: defaultPintheme,
                 focusedPinTheme: defaultPintheme.copyWith(
-                    decoration: defaultPintheme.decoration!.copyWith(
-                        border: Border.all(color: Colors.black))),
+                    decoration: defaultPintheme.decoration!
+                        .copyWith(border: Border.all(color: Colors.black))),
                 onCompleted: (pin) {
                   otp = pin;
                 },
               ),
-          
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 50),
                 child: Row(
@@ -141,8 +127,7 @@ class _OtpPageState extends State<OtpPage> {
                       children: [
                         const Text(
                           "Didn't receive otp? ",
-                          style: TextStyle(
-                              fontSize: 17, color: Colors.black54),
+                          style: TextStyle(fontSize: 17, color: Colors.black54),
                         ),
                         InkWell(
                             onTap: () {
@@ -158,11 +143,10 @@ class _OtpPageState extends State<OtpPage> {
                   ],
                 ),
               ),
-          
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // verifyOTP();
+                    verifyOTP();
                   },
                   style: ElevatedButton.styleFrom(
                       fixedSize: const Size(140, 40),
@@ -172,8 +156,6 @@ class _OtpPageState extends State<OtpPage> {
                   child: const Text('Verify OTP'),
                 ),
               )
-          
-             
             ],
           ),
         ),

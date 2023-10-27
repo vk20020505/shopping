@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,10 @@ class _MyOrderPageState extends State<MyOrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Orders')),
+      appBar: AppBar(title: const Text('Orders'),
+      actions: [TextButton(onPressed: (){
+         FirebaseAuth.instance.signOut();
+      }, child: Text('LogOut'))],),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

@@ -1,12 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping/Admin/addCategory.dart';
-import 'package:shopping/Admin/addProduct.dart';
-import 'package:shopping/Admin/viewCategory.dart';
-import 'package:shopping/Admin/viewProduct.dart';
 import 'package:shopping/Screens.dart/categories.dart';
 import 'package:shopping/Screens.dart/fruits.dart';
 import 'package:shopping/Screens.dart/model.dart';
+import 'package:shopping/Screens.dart/otp.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,74 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                height: 100,
-                padding: const EdgeInsets.only(top: 25, left: 25),
-                width: double.infinity,
-                color: Colors.green,
-                child: const Text(
-                  'Admin',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.panorama_fish_eye),
-                title: const Text('View Product',
-                    style: TextStyle(
-                      fontSize: 15,
-                    )),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const Fruit2();
-                  }));
-                },
-                trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-              ListTile(
-                leading: const Icon(Icons.add_shopping_cart),
-                title: const Text('Add Product',
-                    style: TextStyle(
-                      fontSize: 15,
-                    )),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const Dashboard();
-                  }));
-                },
-                trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-              ListTile(
-                leading: const Icon(Icons.add_shopping_cart),
-                title: const Text('Add Category',
-                    style: TextStyle(
-                      fontSize: 15,
-                    )),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const Add_Category();
-                  }));
-                },
-                trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-              ListTile(
-                leading: const Icon(Icons.panorama_fish_eye),
-                title: const Text('View Category',
-                    style: TextStyle(
-                      fontSize: 15,
-                    )),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const View_Category();
-                  }));
-                },
-                trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-            ],
-          ),
-        ),
+   
         appBar: AppBar(
           elevation: 0,
           titleSpacing: 1,
@@ -225,8 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.only(top: 15),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: .7,
-                          crossAxisSpacing: 50,
+                          childAspectRatio: .75,
+                          // crossAxisSpacing: 50,
                           crossAxisCount: 2,
                         ),
                         itemCount: list2.length,
@@ -235,10 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Column(
                             children: [
                               Container(
-                                height: 160,
-                                width: 160,
+                                height: 150,
+                                width: 150,
                                 padding: const EdgeInsets.only(
-                                    top: 15, left: 15, right: 15),
+                                    top: 10, left: 10, right: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.green.shade100,
                                   borderRadius: BorderRadius.circular(8),
@@ -246,9 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height: 100,
+                                      height: 110,
                                       width: 130,
-                                      margin: const EdgeInsets.only(bottom: 10),
+                                      margin: const EdgeInsets.only(bottom: 5),
                                       decoration: BoxDecoration(
                                         color: Colors.grey.shade100,
                                         image: DecorationImage(

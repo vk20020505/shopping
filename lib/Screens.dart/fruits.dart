@@ -131,6 +131,7 @@ class _FruitsState extends State<Fruits> {
                                     ],
                                   ),
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
@@ -164,8 +165,11 @@ class _FruitsState extends State<Fruits> {
                                                 fontSize: 15,
                                                 color: Colors.white),
                                           )),
-                                      const Text('* per Kg',
-                                          style: TextStyle(fontSize: 12)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:8.0,),
+                                        child: const Text('* per Kg',
+                                            style: TextStyle(fontSize: 15)),
+                                      ),
                                     ],
                                   )
                                 ],

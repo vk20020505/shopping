@@ -58,9 +58,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                     margin: const EdgeInsets.only(bottom: 10),
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: 2),
+                        border: Border.all(color: Colors.grey, width: 1),
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           height: 100,
@@ -87,7 +88,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                               style: TextStyle(fontSize: 20),
                             ),
                             SizedBox(
-                              width: MediaQuery.sizeOf(context).width * .52,
+                              width: MediaQuery.sizeOf(context).width * .5,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -104,7 +105,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.sizeOf(context).width * .52,
+                              width: MediaQuery.sizeOf(context).width * .5,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -113,8 +114,9 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                     height: 30,
                                     // width: 70,
                                     decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
                                         border: Border.all(
-                                            color: Colors.grey, width: 2)),
+                                            color: Colors.grey, width: 1)),
                                     child: Row(
                                       children: [
                                         InkWell(
@@ -126,7 +128,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             },
                                             child: Icon(Icons.add)),
                                         VerticalDivider(
-                                          thickness: 2,
+                                          thickness: 1,
                                         ),
                                         Text(
                                           ShoppingCartItems[index]['count']
@@ -134,7 +136,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                           style: TextStyle(fontSize: 17),
                                         ),
                                         VerticalDivider(
-                                          thickness: 2,
+                                          thickness: 1,
                                         ),
                                         InkWell(
                                             onTap: () {
